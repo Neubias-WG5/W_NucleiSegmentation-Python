@@ -1,0 +1,108 @@
+{
+  "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE BLURRAD RADTHR INTTHR SPLTNT ",
+  "inputs": [
+    {
+      "name": "Cytomine host",
+      "description": "Cytomine server hostname",
+      "set-by-server": true,
+      "value-key": "@ID",
+      "optional": false,
+      "id": "cytomine_host",
+      "type": "String",
+      "command-line-flag": "--@id"
+    },
+    {
+      "name": "Cytomine public key",
+      "description": "Cytomine public key",
+      "set-by-server": true,
+      "value-key": "@ID",
+      "optional": false,
+      "id": "cytomine_public_key",
+      "type": "String",
+      "command-line-flag": "--@id"
+    },
+    {
+      "name": "Cytomine private key",
+      "description": "Cytomine private key",
+      "set-by-server": true,
+      "value-key": "@ID",
+      "optional": false,
+      "id": "cytomine_private_key",
+      "type": "String",
+      "command-line-flag": "--@id"
+    },
+    {
+      "name": "Cytomine project id",
+      "description": "Cytomine project id",
+      "set-by-server": true,
+      "value-key": "@ID",
+      "optional": false,
+      "id": "cytomine_id_project",
+      "type": "Number",
+      "command-line-flag": "--@id"
+    },
+    {
+      "name": "Cytomine software id",
+      "description": "Cytomine software id",
+      "set-by-server": true,
+      "value-key": "@ID",
+      "optional": false,
+      "id": "cytomine_id_software",
+      "type": "Number",
+      "command-line-flag": "--@id"
+    },
+    {
+      "default-value": 3,
+      "name": "RadFlt",
+      "description": "Gaussian blur filter",
+      "set-by-server": false,
+      "value-key": "@ID",
+      "optional": true,
+      "id": "blurad",
+      "type": "Number",
+      "command-line-flag": "--@id"
+    },
+    {
+      "default-value": 75,
+      "name": "RadThr",
+      "description": "Local threshold radius",
+      "set-by-server": false,
+      "value-key": "@ID",
+      "optional": true,
+      "id": "radthr",
+      "type": "Number",
+      "command-line-flag": "--@id"
+    }
+	,
+    {
+      "default-value": -10,
+      "name": "IntThr",
+      "description": "Intensity threshold (offset)",
+      "set-by-server": false,
+      "value-key": "@ID",
+      "optional": true,
+      "id": "intthr",
+      "type": "Number",
+      "command-line-flag": "--@id"
+    }
+	,
+    {
+      "default-value": 3,
+      "name": "SpltNt",
+      "description": "Object splitting tolerance",
+      "set-by-server": false,
+      "value-key": "@ID",
+      "optional": true,
+      "id": "spltnt",
+      "type": "Number",
+      "command-line-flag": "--@id"
+    }
+  ],
+  "name": "NucleiSegmentation-Python",
+  "description": "Segment clustered nuclei using Gaussian filter, local thresholding and adjustable binary watershed",
+  "schema-version": "cytomine-0.1",
+  "container-image": {
+    "image": "neubiaswg5/w_nucleisegmentation-python",
+    "type": "singularity"
+  }
+}
