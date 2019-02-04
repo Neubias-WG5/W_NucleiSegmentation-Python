@@ -53,7 +53,7 @@
     },
     {
       "default-value": 3,
-      "name": "RadFlt",
+      "name": "BluRad",
       "description": "Gaussian blur filter",
       "set-by-server": false,
       "value-key": "@ID",
