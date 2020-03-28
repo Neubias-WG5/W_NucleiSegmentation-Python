@@ -21,7 +21,7 @@ def main(argv):
 
         # 3. Call the image analysis workflow using the run script
         nj.job.update(progress=25, statusComment="Launching workflow...")
-        command = "python script.py --infld {} --outfld {} --blurad {} --radthr {} --intthr {} --spltnt {}".format(in_path, out_path, nj.parameters.blurad, nj.parameters.radthr, nj.parameters.intthr, nj.parameters.spltnt)
+        command = "python script.py --infld {} --outfld {} --blurad {} --radthr {} --intthr {} --spltnt {} --minsize {}".format(in_path, out_path, nj.parameters.blurad, nj.parameters.radthr, nj.parameters.intthr, nj.parameters.spltnt, nj.parameters.minsize)
         return_code = call(command, shell=True, cwd="/app")  # waits for the subprocess to return
 
         if return_code != 0:

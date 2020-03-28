@@ -1,5 +1,5 @@
 {
-  "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE BLURRAD RADTHR INTTHR SPLTNT ",
+  "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE BLURRAD RADTHR INTTHR SPLTNT MINSIZE",
   "inputs": [
     {
       "name": "Cytomine host",
@@ -94,6 +94,18 @@
       "value-key": "@ID",
       "optional": true,
       "id": "spltnt",
+      "type": "Number",
+      "command-line-flag": "--@id"
+    }
+      	,
+    {
+      "default-value": 25,
+      "name": "MinSize",
+      "description": "Minimum object size",
+      "set-by-server": false,
+      "value-key": "@ID",
+      "optional": true,
+      "id": "minsize",
       "type": "Number",
       "command-line-flag": "--@id"
     }

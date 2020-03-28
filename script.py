@@ -6,10 +6,10 @@ import os
 import numpy as np
 from skimage import io
 from skimage import morphology
-from skimage import img_as_uint
 from skimage.filters import gaussian, threshold_adaptive
 from skimage.feature import peak_local_max
-from skimage.morphology import watershed
+from skimage.morphology import watershed,remove_small_objects
+import skimage.segmentation
 from scipy import ndimage
 import argparse
 from argparse import RawTextHelpFormatter
@@ -22,6 +22,7 @@ parser.add_argument('--blurad', help='gaussian filter blur radius', required=Tru
 parser.add_argument('--radthr', help='local threshold radius', required=True)
 parser.add_argument('--intthr', help='local threshold intensity offset', required=True)
 parser.add_argument('--spltnt', help='watershed regional maxima noise tolerance', required=True)
+parser.add_argument('--minsize', help='minimum size of output objects', required=True)
 args = parser.parse_args()
 
 # Input/Output paths
@@ -29,10 +30,11 @@ InputPath = args.infld # "E:/Neubias/Luxembourg/NucleiSegmentation-Python/Test_i
 OutputPath = args.outfld # "E:/Neubias/Luxembourg/NucleiSegmentation-Python/Test_imgs/out"
 
 # Functional parameters
-IntensityBlurRad = float(args.blurad) # 1.5
+IntensityBlurRad = float(args.blurad) # 0.0
 RadThr = float(args.radthr) # 75
 Thr = float(args.intthr)   # -10
 DistanceBlurRad = float(args.spltnt) # 3
+MinSize = int(args.minsize) # 25
 
 # Loop through all tif files in input folder
 Images = (glob.glob(InputPath+"/*.tif"))
@@ -44,10 +46,11 @@ for img in Images:
     # Processing
 
     # Gaussian filter
-    If = 255*gaussian(I, sigma=IntensityBlurRad)
+    if IntensityBlurRad > 0.0:
+        I = 255*gaussian(I, sigma=IntensityBlurRad)
 
     # Adaptive threshold
-    mask = threshold_adaptive(If, RadThr, offset = Thr).astype(np.uint8)
+    mask = threshold_adaptive(I, RadThr, offset = Thr).astype(np.uint8)
 
     # Binary watershed
     distance = ndimage.distance_transform_edt(mask)
@@ -55,7 +58,10 @@ for img in Images:
     local_maxi = peak_local_max(distance, indices=False, footprint=np.ones((3, 3)), labels=mask)
     markers = morphology.label(local_maxi)
     nuclei_labels = watershed(-distance, markers, mask=mask)
-    nuclei_labels = img_as_uint(nuclei_labels)
+    nuclei_labels = nuclei_labels.astype(np.uint16)
+    nuclei_labels = remove_small_objects(nuclei_labels, min_size=MinSize)
+    nuclei_labels = skimage.segmentation.relabel_sequential(nuclei_labels)[0]
+    nuclei_labels = nuclei_labels.astype(np.uint16)
 
     # Write label mask
     filename = os.path.basename(img)
