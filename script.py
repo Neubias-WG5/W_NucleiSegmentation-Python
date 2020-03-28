@@ -46,7 +46,7 @@ for img in Images:
     # Processing
 
     # Gaussian filter
-    if IntensityBlurRad > 0.0:
+    if IntensityBlurRad >= 1:
         I = 255*gaussian(I, sigma=IntensityBlurRad)
 
     # Adaptive threshold
