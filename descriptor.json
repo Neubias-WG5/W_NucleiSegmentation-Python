@@ -52,7 +52,7 @@
       "command-line-flag": "--@id"
     },
     {
-      "default-value": 3,
+      "default-value": 0,
       "name": "BluRad",
       "description": "Gaussian blur filter",
       "set-by-server": false,
